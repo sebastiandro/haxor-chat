@@ -1,0 +1,59 @@
+<head>
+  <title>Haxxor Chat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="animate.css"/>
+    <link rel="stylesheet" href="app.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+</head>
+
+<body class="">
+    <div class="wrapper {{#if currentUser}}{{else}}user-not-logged-in{{/if}}">
+    <h1>Haxor Chat</h1>
+    <div class="chat-wrap">
+        <div class="inner-chat-wrap">
+            {{> messageWindow}}
+            <div class="chat-box">
+                {{#if currentUser}}
+                <form class="chat-form">
+                    <input type="text" name="chat-message" autocomplete="off" placeholder="Write your message..." class="chat-message"/>
+                    <button class="submit-message" type="submit">
+                        Send
+                    </button>
+                </form>
+                {{else}}
+                <div class="please-sign-in">
+                    <span>Please sign in to use the chat</span>
+
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+        {{> loginButtons}}
+    </div>
+
+
+</body>
+
+<template name="messageWindow">
+    <div id="messages">
+        {{#each messages}}
+            {{> message}}
+        {{/each}}
+    </div>
+</template>
+
+<template name="message">
+    <div class="message  {{ #if newMessage }}fadeIn animated{{/if}}">
+        <div class="message-content">
+            <div class="avatar" style="background: {{ userColor }}">
+                <span class="first-letter">{{ userFirstLetter }}</span>
+            </div>
+            <div class="message-body">
+                <span class="name">{{name}}</span>
+                <span class="timestamp" data-livestamp="{{getTimestamp}}">{{getTimeAgo}}</span>
+                <span class="text">{{text}}</span>
+            </div>
+        </div>
+    </div>
+</template>
